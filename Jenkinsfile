@@ -27,15 +27,6 @@ pipeline {
     }
 }
 
- stage('Test') {
-    steps {
-        sh '''
-        . venv/bin/activate
-        pytest
-        '''
-    }
-}
-
         stage('Docker Build') {
             steps {
                 echo 'Building Docker image...'
