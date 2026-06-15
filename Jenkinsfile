@@ -16,19 +16,24 @@ pipeline {
             }
         }
 
-        stage('Build') {
-            steps {
-                echo 'Installing dependencies...'
-                sh 'pip install --break-system-packages -r requirements.txt'
-            }
-        }
+     stage('Build') {
+    steps {
+        sh '''
+        python3 -m venv venv
+        . venv/bin/activate
+        pip install -r requirements.txt
+        '''
+    }
+}
 
-        stage('Test') {
-            steps {
-                echo 'Running tests...'
-                sh 'python -m pytest tests/'
-            }
-        }
+ stage('Test') {
+    steps {
+        sh '''
+        . venv/bin/activate
+        pytest
+        '''
+    }
+}
 
         stage('Docker Build') {
             steps {
